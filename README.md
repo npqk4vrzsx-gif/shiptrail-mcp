@@ -84,3 +84,9 @@ AIS data sources: AISStream; Fintraffic / digitraffic.fi (CC 4.0 BY); BarentsWat
 ## Terms
 
 See [shiptrail.io/privacy](https://shiptrail.io/privacy).
+
+## Licence
+
+This repository (the README and the connection snippets in it) is under the MIT licence: see
+`LICENSE`. The data the server returns is not covered by it: use it under the terms at
+[shiptrail.io/privacy](https://shiptrail.io/privacy), with the credit above.
