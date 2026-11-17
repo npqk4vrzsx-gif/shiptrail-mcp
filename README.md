@@ -1,6 +1,6 @@
 # Shiptrail MCP
 
-Live AIS ship tracking for AI agents. Find any vessel by name, MMSI or IMO, read her position, voyage, particulars and photo, and read any port's arrivals and departures.
+Live AIS ship tracking for AI agents: any vessel, the ships near any place, port arrivals and trends at sea. Find any vessel by name, MMSI or IMO, read her position, voyage, particulars and photo, and read any port's arrivals and departures.
 
 Shiptrail is a free live map of ships at [shiptrail.io](https://shiptrail.io), built from AIS broadcasts heard by receivers near coasts. This is a hosted remote MCP server: there is nothing to install or run.
 
@@ -9,6 +9,13 @@ Shiptrail is a free live map of ships at [shiptrail.io](https://shiptrail.io), b
 - **Auth:** none. No key, account or sign-in.
 - **Cost:** free
 - **Docs:** [shiptrail.io/agents](https://shiptrail.io/agents)
+
+## Listed in
+
+- The official MCP Registry (registry.modelcontextprotocol.io) as `io.shiptrail/shiptrail`
+- [Glama](https://glama.ai/mcp/connectors/io.shiptrail/shiptrail)
+
+[![Shiptrail MCP connector](https://glama.ai/mcp/connectors/io.shiptrail/shiptrail/badges/score.svg)](https://glama.ai/mcp/connectors/io.shiptrail/shiptrail)
 
 ## Tools
 
@@ -72,7 +79,7 @@ Each address gets 120 units, refilling at 4 per second. `search_ships` costs 3, 
 
 - Positions are what ships broadcast and can be minutes old. Ships far from any coast may be out of range.
 - Destinations and ETAs are typed by crews and may be out of date.
-- There is no history over time and no track replay.
+- The tools answer with the present. History and voyage replay are on each ship's page, which every answer links.
 - Not for navigation.
 
 ## Attribution
