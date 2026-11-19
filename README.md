@@ -5,7 +5,7 @@ Live AIS ship tracking for AI agents: any vessel, the ships near any place, port
 Shiptrail is a free live map of ships at [shiptrail.io](https://shiptrail.io), built from AIS broadcasts heard by receivers near coasts. This is a hosted remote MCP server: there is nothing to install or run.
 
 - **Endpoint:** `https://shiptrail.io/mcp`
-- **Transport:** Streamable HTTP (protocol versions 2025-11-25, 2025-06-18, 2025-03-26)
+- **Transport:** Streamable HTTP. Protocol 2026-07-28 (stateless, with `server/discover`), and 2025-11-25, 2025-06-18 and 2025-03-26 for clients that open with `initialize`
 - **Auth:** none. No key, account or sign-in.
 - **Cost:** free
 - **Docs:** [shiptrail.io/agents](https://shiptrail.io/agents)
@@ -62,7 +62,7 @@ claude mcp add --transport http shiptrail https://shiptrail.io/mcp
 }
 ```
 
-**Any Streamable HTTP client:** POST each JSON-RPC message with `Content-Type: application/json`. Responses are single JSON bodies.
+**Any Streamable HTTP client:** POST each JSON-RPC message with `Content-Type: application/json`. Responses are single JSON bodies. Under 2026-07-28 each request carries `MCP-Protocol-Version`, `Mcp-Method` (and `Mcp-Name` for a tool call) headers and its version and capabilities in `_meta`; examples on https://shiptrail.io/agents.
 
 ## Example prompts
 
@@ -73,7 +73,7 @@ claude mcp add --transport http shiptrail https://shiptrail.io/mcp
 
 ## Limits
 
-Each address gets 120 units, refilling at 4 per second. `search_ships` costs 3, `get_ship` 2, and the other tools 1 each. Listing tools, `initialize` and `ping` are free. Up to 20 calls can go in one batched POST.
+Each address gets 120 units, refilling at 4 per second. `search_ships` costs 3, `get_ship` 2, and the other tools 1 each. Listing tools, `server/discover`, `initialize` and `ping` are free. Under the earlier protocol versions, up to 20 calls can go in one batched POST; 2026-07-28 sends one per POST.
 
 ## Good to know
 
