@@ -1,6 +1,6 @@
 # Shiptrail MCP
 
-Live AIS ship tracking for AI agents: any vessel, the ships near any place, port arrivals and trends at sea. Find any vessel by name, MMSI or IMO, read her position, voyage, particulars and photo, and read any port's arrivals and departures.
+Live AIS ship tracking for AI agents: any vessel, the ships near any place, port arrivals and trends at sea. Find any vessel by name, MMSI or IMO, read her position, voyage, particulars and photo, where she has been over the last 90 days and the ports she called at, and read any port's arrivals and departures.
 
 Shiptrail is a free live map of ships at [shiptrail.io](https://shiptrail.io), built from AIS broadcasts heard by receivers near coasts. This is a hosted remote MCP server: there is nothing to install or run.
 
@@ -29,6 +29,9 @@ All tools are read-only. Each returns a plain-language sentence plus structured 
 | `get_port` | Read a port's arrivals and departures |
 | `get_ships_near` | Ships near a port or a point |
 | `get_trends` | What the fleet shows now: queues at anchor, busy straits, false positions |
+| `get_track` | Where a ship has been: her positions over the last hours, or a window of up to 14 days in the last 90 |
+| `get_port_calls` | The ports a ship called at over the last 90 days, with when she arrived and left |
+| `get_area_history` | The ships that passed a port or a point over the last 1 to 24 hours |
 
 ## Connect
 
@@ -70,16 +73,19 @@ claude mcp add --transport http shiptrail https://shiptrail.io/mcp
 - "What arrived at the Port of Rotterdam today?"
 - "Which ships are waiting at anchor off Long Beach?"
 - "Find the vessel with IMO 9811000 and tell me her last destination."
+- "Which ports has the Megastar called at this week, and how long did she stay in each?"
+- "Show me where the Megastar went in the last 24 hours."
+- "Which ships passed through Helsinki harbour in the last six hours?"
 
 ## Limits
 
-Each address gets 120 units, refilling at 4 per second. `search_ships` costs 3, `get_ship` 2, and the other tools 1 each. Listing tools, `server/discover`, `initialize` and `ping` are free. Under the earlier protocol versions, up to 20 calls can go in one batched POST; 2026-07-28 sends one per POST.
+Each address gets 120 units, refilling at 4 per second. `search_ships` costs 3, `get_ship` 2, `get_track` 2, `get_area_history` 10, and the other tools 1 each. Listing tools, `server/discover`, `initialize` and `ping` are free. Under the earlier protocol versions, up to 20 calls can go in one batched POST; 2026-07-28 sends one per POST.
 
 ## Good to know
 
 - Positions are what ships broadcast and can be minutes old. Ships far from any coast may be out of range.
 - Destinations and ETAs are typed by crews and may be out of date.
-- The tools answer with the present. History and voyage replay are on each ship's page, which every answer links.
+- Tracks and port calls reach back 90 days; a track window is at most 14 days and an area 24 hours. Open sea shows as gaps in a track.
 - Not for navigation.
 
 ## Attribution
