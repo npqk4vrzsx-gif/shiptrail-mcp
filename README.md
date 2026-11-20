@@ -81,7 +81,7 @@ claude mcp add --transport http shiptrail https://shiptrail.io/mcp
 
 Each address gets 120 units, refilling at 4 per second; one network (an IPv6 /48 or an IPv4 /24) gets four times that, and all agents together share a larger allowance. `search_ships` takes 3, `get_ship` 2, `get_track` 2, `get_area_history` 10, `get_port` 1 for up to 50 rows a list and 2 above (at most 100), and the other tools 1 each. Every other request (listing tools, `server/discover`, `initialize`, `ping`) and a call refused for its arguments takes 1. Under the earlier protocol versions, up to 20 calls can go in one batched POST, with at most 5 `get_port` calls; 2026-07-28 sends one per POST.
 
-An address may have at most 2 requests in progress at once, and a network 4. Track replays, searches of ships off the map and area histories are shared by all agents a minute; one address gets at most a quarter of each and one network half. A request ends within 25 seconds. Past a limit, a result says when to try again. The same call from any agent within 30 seconds gets the same answer, however its arguments are spelled.
+An address may have at most 4 requests in progress at once, and a network 8; one more is answered 429 with `Retry-After: 1`, to send again when one is answered. Track replays, searches of ships off the map and area histories are shared by all agents a minute; one address gets at most a quarter of each and one network half. A request ends within 25 seconds. Past a limit, a result says when to try again. The same call from any agent within 30 seconds gets the same answer, however its arguments are spelled.
 
 ## Good to know
 
